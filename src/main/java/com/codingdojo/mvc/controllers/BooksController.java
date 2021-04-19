@@ -36,7 +36,7 @@ public class BooksController {
 		return "newBooks.jsp";
 	}
 	
-	@RequestMapping(value="", method=RequestMethod.POST)
+	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public String create(@Valid @ModelAttribute("book") Book book, BindingResult result) {
 		if(result.hasErrors()) {
 			return "newBooks.jsp";
@@ -60,10 +60,21 @@ public class BooksController {
 		return "redirect:/books";
 	}
 	
-	@RequestMapping(value="/{id}/edit", method=RequestMethod.GET)
-	public String editBook(Model model, @PathVariable("id") Long id) {
+	@RequestMapping("/{id}/edit")
+	public String editBook(@PathVariable("id") Long id, Model model) {
 		Book book = bookService.findBook(id);
 		model.addAttribute("book", book);
 		return "editBook.jsp";
+	}
+	
+	@RequestMapping(value="/{id}/update", method=RequestMethod.POST)
+	public String update(@Valid @ModelAttribute("book") Book book, BindingResult result) {
+		if(result.hasErrors()) {
+			return "/books/edit.jsp";
+		}
+		else {
+			bookService.updateBook(book);
+			return "redirect:/books";
+		}
 	}
 }

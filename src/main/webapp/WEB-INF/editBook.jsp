@@ -17,7 +17,7 @@
 	<div class="container mt-5">
 		<a href="/books" class="link text-decoration-none float-end">Go To Books</a>
 		<h1 class="text-center">Edit Book</h1>
-		<form action="/books" method="post" modelAttribute="book">
+		<form action="/books/${book.id}/update" method="post" modelAttribute="book">
 			<label for="title" class="mt-3">Title</label>
 			<input type="text" name="title" value="${book.title}" id="title" class="form-control">
 			<label for="language" class="mt-3">Language</label>
